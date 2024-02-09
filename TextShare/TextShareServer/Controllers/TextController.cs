@@ -3,7 +3,7 @@ using TextShareServer.Services;
 
 namespace TextShareServer.Controllers;
 
-[Route("api/")]
+[Route("Text/[action]/")]
 [ApiController]
 public class TextController : ControllerBase
 {
@@ -15,7 +15,7 @@ public class TextController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public IActionResult Get(string id)
+    public IActionResult Peek(string id)
     {
         if (!_fileService.FileExists(id))
             return NotFound($"No text is stored with id '{id}'");
@@ -25,7 +25,7 @@ public class TextController : ControllerBase
 
 
     [HttpPost("{id}/{value}")]
-    public IActionResult Post(string id, string value)
+    public IActionResult Push(string id, string value)
     {
         _fileService.StoreText(id, value);
         return Ok($"Stored text to '{id}'");
@@ -36,7 +36,6 @@ public class TextController : ControllerBase
     {
         if (!_fileService.FileExists(id))
             return NotFound($"No text is stored with id '{id}'");
-
 
         _fileService.DeleteText(id);
         return Ok($"File {id} deleted");
