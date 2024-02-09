@@ -15,13 +15,13 @@ public class TextController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult List()
+    public ActionResult<IEnumerable<string>> List()
     {
         return Ok(_fileService.GetAllId());
     }
 
     [HttpGet("{id}")]
-    public IActionResult Peek(string id)
+    public ActionResult<string> Peek(string id)
     {
         if (!_fileService.HasText(id))
             return NotFound($"No text is stored with id '{id}'");
@@ -30,7 +30,7 @@ public class TextController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public IActionResult Pop(string id)
+    public ActionResult<string> Pop(string id)
     {
         if (!_fileService.HasText(id))
             return NotFound($"No text is stored with id '{id}'");
