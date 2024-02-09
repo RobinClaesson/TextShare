@@ -1,0 +1,14 @@
+﻿* {
+    font-family: Consolas;
+}
+
+.entry-text {
+    width: 100%;
+    background: #acadb0;
+    border-radius: 0.5rem;
+    min-height: 10rem;
+}
+
+.h2{
+    text-align: left;
+}

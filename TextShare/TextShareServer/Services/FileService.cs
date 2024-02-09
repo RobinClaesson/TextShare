@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using TextShareServer.Models;
 
 namespace TextShareServer.Services;
 
@@ -39,7 +40,8 @@ public class FileService
     public IEnumerable<string> GetAllId()
         => Directory.GetFiles(TextStorageFolder, $"*{TextFileExtension}")
             .Select(Path.GetFileName)
-            .Select(x => x!.Replace(TextFileExtension, string.Empty));
+            .Select(x => x!.Replace(TextFileExtension, string.Empty))
+            .Order();
 
     /// <summary>
     /// Gets the text stored with an id.
@@ -82,4 +84,11 @@ public class FileService
             File.Delete(filePath);
         }
     }
+
+    /// <summary>
+    /// Gets all text entries with their id and stored texts.
+    /// </summary>
+    /// <returns>Collection of TextEntry records with all entries</returns>
+    public IEnumerable<TextEntry> GetAllTextEntries()
+        => GetAllId().Select(id => new TextEntry { Id = id, Text = GetText(id) });
 }

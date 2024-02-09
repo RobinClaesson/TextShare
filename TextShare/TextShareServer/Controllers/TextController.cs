@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TextShareServer.Models;
 using TextShareServer.Services;
 
 namespace TextShareServer.Controllers;
@@ -15,9 +16,15 @@ public class TextController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<string>> List()
+    public ActionResult<IEnumerable<string>> ListIds()
     {
         return Ok(_fileService.GetAllId());
+    }
+
+    [HttpGet]
+    public ActionResult<IEnumerable<TextEntry>> ListEntries()
+    {
+        return Ok(_fileService.GetAllTextEntries());
     }
 
     [HttpGet("{id}")]
