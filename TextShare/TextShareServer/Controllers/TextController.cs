@@ -23,6 +23,17 @@ public class TextController : ControllerBase
         return Ok(_fileService.GetText(id));
     }
 
+    [HttpGet("{id}")]
+    public IActionResult Pop(string id)
+    {
+        if (!_fileService.FileExists(id))
+            return NotFound($"No text is stored with id '{id}'");
+
+        var text = _fileService.GetText(id);
+        _fileService.DeleteText(id);
+
+        return Ok();
+    }
 
     [HttpPost("{id}/{value}")]
     public IActionResult Push(string id, string value)
