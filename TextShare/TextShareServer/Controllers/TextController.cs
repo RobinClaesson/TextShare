@@ -17,13 +17,10 @@ public class TextController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult Get(string id)
     {
-
-        var text = _fileService.GetText(id);
-
-        if (text == string.Empty)
+        if (!_fileService.FileExists(id))
             return NotFound($"No text is stored with id '{id}'");
 
-        return Ok(text);
+        return Ok(_fileService.GetText(id));
     }
 
 
