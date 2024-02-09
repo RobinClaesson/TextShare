@@ -4,16 +4,27 @@
 @{
     ViewData["Title"] = "Stored Texts";
 }
-<div class="text-center">
-    <h1 class="display-4">Stored Texts</h1>
-    <h3><a href="./swagger">Access API</a></h3>
-    <hr />
-</div>
-<div class="text-left">
-    @foreach (var entry in FileService.GetAllTextEntries())
-    {
-        <h2>@entry.Id:</h2>
-        <textarea class="entry-text" disabled="true">@entry.Text</textarea>
+
+@if (FileService.GetAllId().Count() > 0){
+    <div class="text-center">
+        <h1 class="display-4">Stored Texts</h1>
+        <h3><a href="./swagger">Access API</a></h3>
         <hr />
-    }
-</div>  
+    </div>
+    <div class="text-left">
+        @foreach (var entry in FileService.GetAllTextEntries())
+        {
+            <h2>@entry.Id:</h2>
+            <textarea class="entry-text" disabled="true">@entry.Text</textarea>
+            <hr />
+        }
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Nothing Stored</h1>
+        <h3><a href="./swagger">Access API</a></h3>
+        <hr />
+    </div>
+}
