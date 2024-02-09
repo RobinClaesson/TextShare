@@ -21,25 +21,27 @@ public class TextController : ControllerBase
         var text = _fileService.GetText(id);
 
         if (text == string.Empty)
-            return NotFound();
+            return NotFound($"No text is stored with id '{id}'");
 
         return Ok(text);
     }
+
 
     [HttpPost("{id}/{value}")]
     public IActionResult Post(string id, string value)
     {
         _fileService.StoreText(id, value);
-        return Ok();
+        return Ok($"Stored text to '{id}'");
     }
 
     [HttpDelete("{id}")]
     public IActionResult Delete(string id)
     {
         if (!_fileService.FileExists(id))
-            return NotFound();
+            return NotFound($"No text is stored with id '{id}'");
+
 
         _fileService.DeleteText(id);
-        return Ok();
+        return Ok($"File {id} deleted");
     }
 }
