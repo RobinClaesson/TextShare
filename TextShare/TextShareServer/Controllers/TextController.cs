@@ -17,33 +17,29 @@ public class TextController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult Get(string id)
     {
-        try
-        {
-            var text = _fileService.GetText(id);
 
-            if (text == string.Empty)
-                return NotFound();
+        var text = _fileService.GetText(id);
 
-            return Ok(text);
-        }
-        catch
-        {
-            return new ObjectResult(StatusCodes.Status500InternalServerError);
-        }
+        if (text == string.Empty)
+            return NotFound();
+
+        return Ok(text);
     }
 
     [HttpPost("{id}/{value}")]
     public IActionResult Post(string id, string value)
     {
-        try
-        {
-            _fileService.StoreText(id, value);
-        }
-        catch
-        {
-            return new ObjectResult(StatusCodes.Status500InternalServerError);
-        }
+        _fileService.StoreText(id, value);
+        return Ok();
+    }
 
+    [HttpDelete("{id}")]
+    public IActionResult Delete(string id)
+    {
+        if (!_fileService.FileExists(id))
+            return NotFound();
+
+        _fileService.DeleteText(id);
         return Ok();
     }
 }

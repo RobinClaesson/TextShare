@@ -16,9 +16,11 @@ public class FileService
     }
 
     public string GetTextFilePath(string id)
-    {
-        return Path.Combine(TextStorageFolder, id + ".txt");
-    }
+        => Path.Combine(TextStorageFolder, id + ".txt");
+
+
+    public bool FileExists(string id)
+        => File.Exists(GetTextFilePath(id));
 
     public string GetText(string id)
     {
@@ -33,7 +35,7 @@ public class FileService
     public void StoreText(string id, string text)
     {
         var filePath = GetTextFilePath(id);
-        using(var writer = new StreamWriter(filePath, true))
+        using (var writer = new StreamWriter(filePath, true))
         {
             writer.WriteLine(text);
         }
