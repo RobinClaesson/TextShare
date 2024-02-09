@@ -39,7 +39,7 @@ public class FileService
     public IEnumerable<string> GetAllId()
         => Directory.GetFiles(TextStorageFolder, $"*{TextFileExtension}")
             .Select(Path.GetFileName)
-            .Select(x => x.Replace(TextFileExtension, string.Empty));
+            .Select(x => x!.Replace(TextFileExtension, string.Empty));
 
     /// <summary>
     /// Gets the text stored with an id.
