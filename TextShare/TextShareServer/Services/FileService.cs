@@ -6,6 +6,7 @@ namespace TextShareServer.Services;
 public class FileService
 {
     public const string TextStorageFolder = "StoredTexts";
+    public const string TextFileExtension = ".txt";
 
     public FileService()
     {
@@ -16,11 +17,16 @@ public class FileService
     }
 
     public string GetTextFilePath(string id)
-        => Path.Combine(TextStorageFolder, id + ".txt");
+        => Path.Combine(TextStorageFolder, id + TextFileExtension);
 
 
     public bool FileExists(string id)
         => File.Exists(GetTextFilePath(id));
+
+    public IEnumerable<string> GetFiles()
+        => Directory.GetFiles(TextStorageFolder, $"*{TextFileExtension}")
+            .Select(Path.GetFileName)
+            .Select(x => x.Replace(TextFileExtension, string.Empty));
 
     public string GetText(string id)
     {

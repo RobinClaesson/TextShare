@@ -14,6 +14,12 @@ public class TextController : ControllerBase
         _fileService = fileService;
     }
 
+    [HttpGet]
+    public IActionResult List()
+    {
+        return Ok(_fileService.GetFiles());
+    }
+
     [HttpGet("{id}")]
     public IActionResult Peek(string id)
     {
