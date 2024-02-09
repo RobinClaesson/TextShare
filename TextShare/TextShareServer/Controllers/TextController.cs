@@ -17,13 +17,13 @@ public class TextController : ControllerBase
     [HttpGet]
     public IActionResult List()
     {
-        return Ok(_fileService.GetFiles());
+        return Ok(_fileService.GetAllId());
     }
 
     [HttpGet("{id}")]
     public IActionResult Peek(string id)
     {
-        if (!_fileService.FileExists(id))
+        if (!_fileService.HasText(id))
             return NotFound($"No text is stored with id '{id}'");
 
         return Ok(_fileService.GetText(id));
@@ -32,7 +32,7 @@ public class TextController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult Pop(string id)
     {
-        if (!_fileService.FileExists(id))
+        if (!_fileService.HasText(id))
             return NotFound($"No text is stored with id '{id}'");
 
         var text = _fileService.GetText(id);
@@ -51,7 +51,7 @@ public class TextController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(string id)
     {
-        if (!_fileService.FileExists(id))
+        if (!_fileService.HasText(id))
             return NotFound($"No text is stored with id '{id}'");
 
         _fileService.DeleteText(id);
