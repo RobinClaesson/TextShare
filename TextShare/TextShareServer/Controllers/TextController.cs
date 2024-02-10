@@ -52,7 +52,7 @@ public class TextController : ControllerBase
     public IActionResult Push(string id, string value)
     {
         _fileService.StoreText(id, value);
-        return Ok($"Stored text to '{id}'");
+        return Ok($"Stored text '{value}' to '{id}'");
     }
 
     [HttpDelete("{id}")]
@@ -62,6 +62,6 @@ public class TextController : ControllerBase
             return NotFound($"No text is stored with id '{id}'");
 
         _fileService.DeleteText(id);
-        return Ok($"File {id} deleted");
+        return Ok($"Text for '{id}' deleted");
     }
 }
