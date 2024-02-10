@@ -17,6 +17,24 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true
+    },
+    "help": {
+      "commandName": "Project",
+      "commandLineArgs": "--help",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    },
+    "version": {
+      "commandName": "Project",
+      "commandLineArgs": "--version",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
     }
   },
   "iisSettings": {

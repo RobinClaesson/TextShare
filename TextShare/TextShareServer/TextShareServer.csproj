@@ -4,6 +4,9 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Version>1.0.0</Version>
+    <Copyright>MIT License</Copyright>
+    <Company>Robin Claesson</Company>
   </PropertyGroup>
 
   <ItemGroup>

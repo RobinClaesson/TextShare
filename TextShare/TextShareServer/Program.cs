@@ -2,7 +2,14 @@ using TextShareServer;
 using TextShareServer.Services;
 using CommandLine;
 
-var clOptions = Parser.Default.ParseArguments<CommandLineOptions>(args).Value;
+var parsedResult = Parser.Default.ParseArguments<CommandLineOptions>(args);
+
+if(parsedResult.Tag == ParserResultType.NotParsed)
+{
+    return;
+}
+
+var clOptions = parsedResult.Value;
 
 var builder = WebApplication.CreateBuilder(args);
 
