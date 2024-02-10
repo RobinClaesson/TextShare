@@ -16,7 +16,7 @@ public class CommandLineOptions
     [Option('l', "localhost", Required = false, HelpText = "Allow connection only from localhost.")]
     public bool LocalHost { get; set; } = false;
 
-    [Option("swagger", Required = false, HelpText = "Allows direct API access with Swagger.")]
+    [Option('w', "swagger", Required = false, HelpText = "Allows direct API access with Swagger.")]
     public bool UseSwagger { get; set; }
 
     public string[] GetHostUrls()
