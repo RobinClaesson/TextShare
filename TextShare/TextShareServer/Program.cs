@@ -2,7 +2,7 @@ using TextShareServer;
 using TextShareServer.Services;
 using CommandLine;
 
-var commandLineOptions = Parser.Default.ParseArguments<CommandLineOptions>(args).Value;
+var clOptions = Parser.Default.ParseArguments<CommandLineOptions>(args).Value;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,18 +10,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
 
-if (commandLineOptions.UseSwagger)
+if (clOptions.UseSwagger)
 {
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 }
 
 builder.Services.AddScoped<FileService>();
-builder.Services.AddSingleton<CommandLineOptions>(commandLineOptions);
+builder.Services.AddSingleton<CommandLineOptions>(clOptions);
+
+builder.WebHost.UseUrls(clOptions.GetHostUrls());
 
 var app = builder.Build();
 
-if (commandLineOptions.UseSwagger)
+if (clOptions.UseSwagger)
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -37,11 +39,13 @@ if (!app.Environment.IsDevelopment())
 
 }
 
-app.UseHttpsRedirection();
+if (clOptions.UseHttps)
+{
+    app.UseHttpsRedirection();
+}
+
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
