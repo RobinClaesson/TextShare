@@ -61,7 +61,7 @@ Text Share Server exposes the following REST Api:
 <td> /Text/ListIds </td> <td> GET </td> <td> Get all id's which have stored text.</td> 
 <td>
 
-```json
+```
 [Foo, Author]
 ```
 </td>
@@ -88,7 +88,7 @@ Leaves the text on the server</td>
 </p>
 <td>
 
-```json
+```
 Bar
 Hello World
 ```
@@ -103,7 +103,7 @@ Deletes the text from the server</td>
 </p>
 <td>
 
-```json
+```
 Bar
 Hello World
 ```
@@ -118,7 +118,7 @@ Appends to existing values for {id}.</td>
 </p>
 <td>
 
-```json
+```
 Stored text 'Bar' to 'Foo'
 ```
 </td>
