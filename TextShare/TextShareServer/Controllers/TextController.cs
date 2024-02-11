@@ -48,11 +48,11 @@ public class TextController : ControllerBase
         return Ok(text);
     }
 
-    [HttpPost("{id}/{value}")]
-    public IActionResult Push(string id, string value)
+    [HttpPost()]
+    public IActionResult Push([FromBody] TextEntry entry)
     {
-        _fileService.StoreText(id, value);
-        return Ok($"Stored text '{value}' to '{id}'");
+        _fileService.StoreText(entry);
+        return Ok($"Stored text '{entry.Text}' to '{entry.Id}'");
     }
 
     [HttpDelete("{id}")]
