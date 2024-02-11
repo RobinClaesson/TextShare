@@ -45,7 +45,7 @@ public class TextController : ControllerBase
         var text = _fileService.GetText(id);
         _fileService.DeleteText(id);
 
-        return Ok();
+        return Ok(text);
     }
 
     [HttpPost("{id}/{value}")]
