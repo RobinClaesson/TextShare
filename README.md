@@ -113,8 +113,8 @@ Hello World
 </tr>
 
 <tr>
-<td> /Text/Push/{id}/{value} </td> <td> POST </td> 
-<td> Stores {value] with {id}. 
+<td> /Text/Push/{id} </td> <td> POST </td> 
+<td> Stores POST Body with {id}. 
 <p>
 Appends to existing values for {id}.</td> 
 </p>

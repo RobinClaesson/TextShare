@@ -48,8 +48,8 @@ public class TextController : ControllerBase
         return Ok(text);
     }
 
-    [HttpPost("{id}/{value}")]
-    public IActionResult Push(string id, string value)
+    [HttpPost("{id}")]
+    public IActionResult Push(string id, [FromBody] string value)
     {
         _fileService.StoreText(id, value);
         return Ok($"Stored text '{value}' to '{id}'");
