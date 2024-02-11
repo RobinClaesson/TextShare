@@ -9,19 +9,9 @@
       },
       "dotnetRunMessages": true
     },
-    "https": {
-      "commandName": "Project",
-      "commandLineArgs": "--swagger -p 8080 -s 8081 -l",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "dotnetRunMessages": true
-    },
     "help": {
       "commandName": "Project",
       "commandLineArgs": "--help",
-      "launchBrowser": false,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -30,7 +20,32 @@
     "version": {
       "commandName": "Project",
       "commandLineArgs": "--version",
-      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    },
+    "test": {
+      "commandName": "Project",
+      "commandLineArgs": "--no-http -s 8081",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    },
+    "http & https": {
+      "commandName": "Project",
+      "commandLineArgs": "--swagger -p 8080 -s 8081 -l",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    },
+    "https": {
+      "commandName": "Project",
+      "commandLineArgs": "--swagger --no-http -s 8081 -l",
+      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
