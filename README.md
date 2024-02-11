@@ -128,8 +128,8 @@ Stored text 'Bar' to 'Foo'
 <td> /Text/Delete/{id} </td> <td> DELETE </td> <td> Deletes the text stored for {id}.</td> 
 <td>
 
-```json
-[Foo, Author]
+```
+Text for 'Foo' deleted
 ```
 </td>
 
