@@ -1,4 +1,4 @@
-﻿namespace TextShareServer.Models;
+﻿namespace TextShareCommons.Models;
 
 public record TextEntry
 {
