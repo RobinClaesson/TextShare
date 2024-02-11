@@ -9,11 +9,12 @@ Webinterface and swagger.
 Built with ASP.NET Core targeting .NET Core 7.0.
 
 Run directly from source with:
-```
+```sh
 dotnet run [options]
 ```
-To not have to build every time, publish the project and then run:
+Due to how dotnet works with running from source some short-hand options such as ```-p``` does not work, all long option variants does however still work.
 
+To not have to build every time, or to not have dotnet interfere with the options, publish the project and then run:
 <table>
 <tr>
 <td> Windows </td> <td> Linux / Mac </td>
