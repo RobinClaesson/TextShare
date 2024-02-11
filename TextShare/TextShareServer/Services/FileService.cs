@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using TextShareServer.Models;
+using TextShareCommons.Models;
 
 namespace TextShareServer.Services;
 

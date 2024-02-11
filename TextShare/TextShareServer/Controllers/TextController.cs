@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TextShareServer.Models;
+using TextShareCommons.Models;
 using TextShareServer.Services;
 
 namespace TextShareServer.Controllers;
