@@ -4,6 +4,7 @@ Use cases: share text as a team, send text between ios and pc, repository of tex
 ## Text Share Server
 Hosting server for the service. 
 Webinterface and swagger. 
+
 ### Build & Run
 Built with ASP.NET Core targeting .NET Core 7.0.
 
@@ -37,7 +38,7 @@ dotnet TextShareServer.dll [options]
 </tr>
 </table>
 
-### Command line options
+#### Command line options
 
 | Option       | Short | Function                                                           |
 | ------------ | ----- | ------------------------------------------------------------------ |
@@ -136,5 +137,11 @@ Text for 'Foo' deleted
 </table>
 
 ### Web Interface
+The server also have a simple web page to show the currently stored texts.  
+
+![Text Share Server web interface](/Assets/TextShareServerWeb.png)
 
 #### Swagger
+If the program is launched with the  ```--swagger``` option set, the API can be access in the web browser with [Swagger UI](https://swagger.io/tools/swagger-ui/) at ```/swagger/index.html```. The **Access API** link in the web interface leading to this page is only visible if Swagger is enabled.
+
+![Text Share Server Swagger interface](/Assets/TextShareServerSwagger.png)
