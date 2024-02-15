@@ -17,12 +17,8 @@ internal class ApiHandler
 
     public async Task<string[]> ListIds()
     {
-        var response = await _httpClient.GetAsync("/Text/ListIds");
-
-        if (response.IsSuccessStatusCode)
-            return JsonSerializer.Deserialize<string[]>(await response.Content.ReadAsStringAsync() ?? string.Empty) ?? new string[0];
-
-        return new string[0];
+        var response = await _httpClient.GetFromJsonAsync<string[]>("/Text/ListIds");
+        return response ?? new string[0];
     }
 
     public async Task<TextEntry[]> ListEntries()
