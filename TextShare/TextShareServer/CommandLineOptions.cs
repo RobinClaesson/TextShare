@@ -1,13 +1,12 @@
 ﻿using CommandLine;
-using CommandLine.Text;
-using Microsoft.Extensions.Options;
+using TextShareCommons;
 
 namespace TextShareServer;
 
 public class CommandLineOptions
 {
-    [Option('p', "http-port", Required = false, HelpText = "The port to listen for HTTP requests. Default value: '5000'.")]
-    public int HttpPort { get; set; } = 5000;
+    [Option('p', "http-port", Required = false, HelpText = $"The port to listen for HTTP requests. Default value: '5000'.")]
+    public int HttpPort { get; set; } = Globals.DefaultHttpPort;
 
     [Option('s', "https-port", Required = false, HelpText = "The port to listen for HTTPS requests. HTTPS turned of if not set.")]
     public int? HttpsPort { get; set; } = null;
