@@ -33,6 +33,9 @@ switch (mainMenuChoice)
     case "Quick Pop":
         await QuickPop();
         break;
+    case "Quick Push":
+        await QuickPush();
+        break;
     case "Exit":
         Console.WriteLine("Exit");
         return;
@@ -92,7 +95,7 @@ async Task Push()
     var text = Console.ReadLine();
 
     Console.Clear();
-    Console.WriteLine($"Pushing '{text}' to '{id}...'");
+    Console.WriteLine($"Pushing '{text}' to '{id}'...");
     var response = await apiHandler.Push(new TextEntry { Id = id!, Text = text! });
     Console.Clear();
 
@@ -101,7 +104,7 @@ async Task Push()
 
 async Task QuickPeek()
 {
-    if(string.IsNullOrEmpty(SettingsHandler.Settings.QuickAccessId))
+    if (string.IsNullOrEmpty(SettingsHandler.Settings.QuickAccessId))
     {
         Console.WriteLine("No Quick Access Id set");
         return;
@@ -111,7 +114,7 @@ async Task QuickPeek()
     var response = await apiHandler.Peek(SettingsHandler.Settings.QuickAccessId);
     Console.Clear();
 
-    if(string.IsNullOrEmpty(response))
+    if (string.IsNullOrEmpty(response))
     {
         Console.WriteLine($"No text stored for Quick Access Id '{SettingsHandler.Settings.QuickAccessId}'");
         return;
@@ -140,6 +143,25 @@ async Task QuickPop()
     }
 
     Console.WriteLine($"Popped text for {SettingsHandler.Settings.QuickAccessId}:");
+    Console.WriteLine(response);
+}
+
+async Task QuickPush()
+{
+    if (string.IsNullOrEmpty(SettingsHandler.Settings.QuickAccessId))
+    {
+        Console.WriteLine("No Quick Access Id set");
+        return;
+    }
+
+    Console.Write($"Enter text to push to {SettingsHandler.Settings.QuickAccessId}: ");
+    var text = Console.ReadLine();
+
+    Console.Clear();
+    Console.WriteLine($"Pushing '{text}' to '{SettingsHandler.Settings.QuickAccessId}'...");
+    var response = await apiHandler.Push(new TextEntry { Id = SettingsHandler.Settings.QuickAccessId, Text = text! });
+    Console.Clear();
+
     Console.WriteLine(response);
 }
 
@@ -177,7 +199,7 @@ async Task ListEntries()
     {
         Console.WriteLine($"{entry.Id}:");
         var texts = entry.Text.Replace("\r", "").Split("\n");
-        foreach(var s in texts)
+        foreach (var s in texts)
             Console.WriteLine($"\t{entry.Text}");
     }
 }
