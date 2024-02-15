@@ -56,12 +56,18 @@ Text Share Server exposes the following REST Api:
 
 <table>
 <tr>
-<td> Url </td> <td> Method </td> <td> Explanation </td> <td> Example response </td>
+<td> Url </td> <td> Method </td> <td> Explanation </td> <td> Example calls & responses </td>
 </tr>
+
+<tr></tr>
 
 <tr>
 <td> /Text/ListIds </td> <td> GET </td> <td> Get all id's which have stored text.</td> 
 <td>
+
+```
+/Text/ListIds
+```
 
 ```
 [Foo, Author]
@@ -69,9 +75,15 @@ Text Share Server exposes the following REST Api:
 </td>
 </tr>
 
+<tr></tr>
+
 <tr>
 <td> /Text/ListEntries </td> <td> GET </td> <td> Get all id's with their stored texts.</td> 
 <td>
+
+```
+/Text/ListEntries
+```
 
 ```json
 [
@@ -82,6 +94,8 @@ Text Share Server exposes the following REST Api:
 </td>
 </tr>
 
+<tr></tr>
+
 <tr>
 <td> /Text/Peek/{id} </td> <td> GET </td> 
 <td> Get the text stored with {id}. 
@@ -91,11 +105,17 @@ Leaves the text on the server</td>
 <td>
 
 ```
+/Text/Peek/Foo
+```
+
+```
 Bar
 Hello World
 ```
 </td>
 </tr>
+
+<tr></tr>
 
 <tr>
 <td> /Text/Pop/{id} </td> <td> GET </td> 
@@ -106,11 +126,17 @@ Deletes the text from the server</td>
 <td>
 
 ```
+/Text/Pop/Foo
+```
+
+```
 Bar
 Hello World
 ```
 </td>
 </tr>
+
+<tr></tr>
 
 <tr>
 <td> /Text/Push </td> <td> POST </td> 
@@ -121,14 +147,31 @@ Appends to existing values for {id}.</td>
 <td>
 
 ```
+/Text/Push
+```
+
+```json
+{
+  "id": "Foo",
+  "text": "Bar"
+}
+```
+
+```
 Stored text 'Bar' to 'Foo'
 ```
 </td>
 </tr>
 
+<tr></tr>
+
 <tr>
 <td> /Text/Delete/{id} </td> <td> DELETE </td> <td> Deletes the text stored for {id}.</td> 
 <td>
+
+```
+/Text/Delete/Foo
+```
 
 ```
 Text for 'Foo' deleted
