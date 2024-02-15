@@ -2,6 +2,7 @@
 using TextShareClient.TextSareSettings;
 using TextShareCommons.Models;
 using TextCopy;
+using static System.Net.Mime.MediaTypeNames;
 
 SettingsHandler.InitSettings();
 
@@ -136,6 +137,9 @@ async Task QuickPeek()
 
     Console.WriteLine($"Peeked text for {SettingsHandler.Settings.QuickAccessId}:");
     Console.WriteLine(response);
+
+    if (SettingsHandler.Settings.CopyValuesToClipboard)
+        await ClipboardService.SetTextAsync(response);
 }
 
 async Task QuickPop()
@@ -158,6 +162,9 @@ async Task QuickPop()
 
     Console.WriteLine($"Popped text for {SettingsHandler.Settings.QuickAccessId}:");
     Console.WriteLine(response);
+
+    if (SettingsHandler.Settings.CopyValuesToClipboard)
+        await ClipboardService.SetTextAsync(response);
 }
 
 async Task QuickPush()
