@@ -103,3 +103,24 @@ async Task ListIds()
         Console.WriteLine(id);
     }
 }
+
+async Task ListEntries()
+{
+    Console.WriteLine("Fetching entries...");
+    var entries = await apiHandler.ListEntries();
+    Console.Clear();
+
+    if (entries.Length == 0)
+    {
+        Console.WriteLine("No Entries stored");
+        return;
+    }
+    Console.WriteLine("List Entries:");
+    foreach (var entry in entries)
+    {
+        Console.WriteLine($"{entry.Id}:");
+        var texts = entry.Text.Replace("\r", "").Split("\n");
+        foreach(var s in texts)
+            Console.WriteLine($"\t{entry.Text}");
+    }
+}

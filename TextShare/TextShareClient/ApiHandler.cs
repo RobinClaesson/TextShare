@@ -25,6 +25,12 @@ internal class ApiHandler
         return new string[0];
     }
 
+    public async Task<TextEntry[]> ListEntries()
+    {
+        var response = await _httpClient.GetFromJsonAsync<TextEntry[]>("/Text/ListEntries");
+        return response ?? new TextEntry[0];
+    }
+
     public async Task<string> Peek(string id)
     {
         var response = await _httpClient.GetAsync($"/Text/Peek/{id}");
