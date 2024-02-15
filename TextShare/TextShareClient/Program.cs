@@ -2,47 +2,58 @@
 using TextShareClient.TextSareSettings;
 using TextShareCommons.Models;
 using TextCopy;
+using CommandLine;
+using TextShareClient.TextShareSettings;
 using static System.Net.Mime.MediaTypeNames;
 
-SettingsHandler.InitSettings();
-
 var apiHandler = new ApiHandler();
-var mainMenu = new Menu("Text Share Client", new[] { "Peek", "Pop", "Push", "Quick Peek", "Quick Pop", "Quick Push", "List Ids", "List Entries", "Exit" });
 
-var mainMenuChoice = mainMenu.DisplayMenu();
+Parser.Default.ParseArguments<CommandLineOptions, PeekCommandLineOptions>(args)
+    .WithParsed<CommandLineOptions>(async opt => await MainMenu(opt))
+    .WithParsed<PeekCommandLineOptions>(async opt => await PeekVerb(opt))
+    .WithParsed<PopCommandLineOptions>(async opt => await PopVerb(opt))
+    .WithParsed<PushCommandLineOptions>(async opt => await PushVerb(opt));
 
-switch (mainMenuChoice)
+async Task MainMenu(CommandLineOptions options)
 {
-    case "Peek":
-        await Peek();
-        break;
-    case "Pop":
-        await Pop();
-        break;
-    case "List Ids":
-        await ListIds();
-        break;
-    case "List Entries":
-        await ListEntries();
-        break;
-    case "Push":
-        await Push();
-        break;
-    case "Quick Peek":
-        await QuickPeek();
-        break;
-    case "Quick Pop":
-        await QuickPop();
-        break;
-    case "Quick Push":
-        await QuickPush();
-        break;
-    case "Exit":
-        Console.WriteLine("Exit");
-        return;
+    SettingsHandler.InitSettings(options);
+
+    var mainMenu = new Menu("Text Share Client", new[] { "Peek", "Pop", "Push", "Quick Peek", "Quick Pop", "Quick Push", "List Ids", "List Entries", "Exit" });
+    var mainMenuChoice = mainMenu.DisplayMenu();
+
+    switch (mainMenuChoice)
+    {
+        case "Peek":
+            await PeekMenu();
+            break;
+        case "Pop":
+            await PopMenu();
+            break;
+        case "List Ids":
+            await ListIds();
+            break;
+        case "List Entries":
+            await ListEntries();
+            break;
+        case "Push":
+            await PushMenu();
+            break;
+        case "Quick Peek":
+            await QuickPeek();
+            break;
+        case "Quick Pop":
+            await QuickPop();
+            break;
+        case "Quick Push":
+            await QuickPush();
+            break;
+        case "Exit":
+            Console.WriteLine("Exit");
+            return;
+    }
 }
 
-async Task Peek()
+async Task PeekMenu()
 {
     Console.WriteLine("Fetching Ids...");
     var ids = await apiHandler.ListIds();
@@ -57,22 +68,35 @@ async Task Peek()
     var peekMenu = new Menu("Peek what Id?", ids);
     var peekMenuChoice = peekMenu.DisplayMenu();
 
-    Console.WriteLine($"Peeked text for {peekMenuChoice}:");
-    var text = await apiHandler.Peek(peekMenuChoice);
+    await Peek(peekMenuChoice);
+}
+
+async Task PeekVerb(PeekCommandLineOptions options)
+{
+    SettingsHandler.InitSettings(options);
+    await Peek(options.Id);
+}
+
+async Task Peek(string id)
+{
+    Console.WriteLine($"Fetching text for '{id}'");
+    var text = await apiHandler.Peek(id);
+    Console.Clear();
 
     if (string.IsNullOrEmpty(text))
     {
-        Console.WriteLine($"No text stored for Quick Access Id '{SettingsHandler.Settings.QuickAccessId}'");
+        Console.WriteLine($"No text stored for Id '{id}'");
         return;
     }
 
+    Console.WriteLine($"Peeked text for {id}:");
     Console.WriteLine(text);
 
     if (SettingsHandler.Settings.CopyValuesToClipboard)
         await ClipboardService.SetTextAsync(text);
 }
 
-async Task Pop()
+async Task PopMenu()
 {
     Console.WriteLine("Fetching Ids...");
     var ids = await apiHandler.ListIds();
@@ -87,8 +111,20 @@ async Task Pop()
     var popMenu = new Menu("Pop what Id?", ids);
     var popMenuChoice = popMenu.DisplayMenu();
 
-    Console.WriteLine($"Popped text for {popMenuChoice}:");
-    var text = await apiHandler.Pop(popMenuChoice);
+    await Pop(popMenuChoice);
+}
+
+async Task PopVerb(PopCommandLineOptions options)
+{
+    SettingsHandler.InitSettings(options);
+    await Pop(options.Id);
+}
+
+async Task Pop(string id)
+{
+    Console.WriteLine($"Popping text for {id}");
+    var text = await apiHandler.Pop(id);
+    Console.Clear();
 
     if (string.IsNullOrEmpty(text))
     {
@@ -96,22 +132,34 @@ async Task Pop()
         return;
     }
 
+    Console.WriteLine($"Popped text for {id}:");
     Console.WriteLine(text);
 
     if (SettingsHandler.Settings.CopyValuesToClipboard)
         await ClipboardService.SetTextAsync(text);
 }
 
-async Task Push()
+async Task PushMenu()
 {
     Console.Write("Enter Id to push to: ");
     var id = Console.ReadLine();
     Console.Write("Enter text to push: ");
     var text = Console.ReadLine();
 
+    await Push(new TextEntry { Id = id!, Text = text! });
+}
+
+async Task PushVerb(PushCommandLineOptions options)
+{
+    SettingsHandler.InitSettings(options);
+    await Push(new TextEntry { Id = options.Id, Text = options.Text });
+}
+
+async Task Push(TextEntry textEntry)
+{
     Console.Clear();
-    Console.WriteLine($"Pushing '{text}' to '{id}'...");
-    var response = await apiHandler.Push(new TextEntry { Id = id!, Text = text! });
+    Console.WriteLine($"Pushing '{textEntry.Text}' to '{textEntry.Id}'...");
+    var response = await apiHandler.Push(textEntry);
     Console.Clear();
 
     Console.WriteLine(response);

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using TextShareClient.TextShareSettings;
 
 namespace TextShareClient.TextSareSettings;
 
@@ -8,7 +9,7 @@ internal static class SettingsHandler
 
     public static Settings Settings { get; private set; } = new Settings();
 
-    public static void InitSettings()
+    public static void InitSettings(CommandLineOptions options)
     {
         if (File.Exists(SettingsFileName))
         {
@@ -16,7 +17,12 @@ internal static class SettingsHandler
         }
         else
         {
-            File.WriteAllText(SettingsFileName, JsonSerializer.Serialize(new Settings()));
+            File.WriteAllText(SettingsFileName, JsonSerializer.Serialize(Settings));
         }
+
+        Settings = Settings with
+        {
+            CopyValuesToClipboard = Settings.CopyValuesToClipboard | options.Copy
+        };
     }
 }

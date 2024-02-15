@@ -2,7 +2,7 @@
 
 namespace TextShareClient.TextSareSettings;
 
-internal class Settings
+internal record Settings
 {
     public string BaseAddress { get; init; } = $"http://localhost:{Globals.DefaultHttpPort}";
     public string QuickAccessId { get; init; } = string.Empty;
