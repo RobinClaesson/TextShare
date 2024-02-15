@@ -22,7 +22,7 @@ switch (mainMenuChoice)
         await ListIds();
         break;
     case "List Entries":
-        Console.WriteLine("List Entries");
+        await ListEntries();
         break;
     case "Push":
         await Push();
@@ -36,6 +36,7 @@ async Task Peek()
 {
     Console.WriteLine("Fetching Ids...");
     var ids = await apiHandler.ListIds();
+    Console.Clear();
 
     if (ids.Length == 0)
     {
@@ -58,6 +59,7 @@ async Task Pop()
 {
     Console.WriteLine("Fetching Ids...");
     var ids = await apiHandler.ListIds();
+    Console.Clear();
 
     if (ids.Length == 0)
     {
@@ -83,13 +85,18 @@ async Task Push()
     Console.Write("Enter text to push: ");
     var text = Console.ReadLine();
 
+    Console.Clear();
+    Console.WriteLine($"Pushing '{text}' to '{id}...'");
     var response = await apiHandler.Push(new TextEntry { Id = id!, Text = text! });
+    Console.Clear();
+
     Console.WriteLine(response);
 }
 
 async Task ListIds()
 {
     var ids = await apiHandler.ListIds();
+    Console.Clear();
 
     if (ids.Length == 0)
     {
