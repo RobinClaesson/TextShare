@@ -27,6 +27,9 @@ switch (mainMenuChoice)
     case "Push":
         await Push();
         break;
+    case "Quick Peek":
+        await QuickPeek();
+        break;
     case "Exit":
         Console.WriteLine("Exit");
         return;
@@ -90,6 +93,28 @@ async Task Push()
     var response = await apiHandler.Push(new TextEntry { Id = id!, Text = text! });
     Console.Clear();
 
+    Console.WriteLine(response);
+}
+
+async Task QuickPeek()
+{
+    if(string.IsNullOrEmpty(SettingsHandler.Settings.QuickAccessId))
+    {
+        Console.WriteLine("No Quick Access Id set");
+        return;
+    }
+
+    Console.WriteLine($"Fetching text for {SettingsHandler.Settings.QuickAccessId}");
+    var response = await apiHandler.Peek(SettingsHandler.Settings.QuickAccessId);
+    Console.Clear();
+
+    if(string.IsNullOrEmpty(response))
+    {
+        Console.WriteLine($"No text stored for Quick Access Id '{SettingsHandler.Settings.QuickAccessId}'");
+        return;
+    }
+
+    Console.WriteLine($"Peeked text for {SettingsHandler.Settings.QuickAccessId}:");
     Console.WriteLine(response);
 }
 
