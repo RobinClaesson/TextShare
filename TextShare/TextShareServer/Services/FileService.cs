@@ -59,16 +59,15 @@ public class FileService
     }
 
     /// <summary>
-    /// Store text with for an id. Appends if text already existed. 
+    /// Store text with for an id. Appends if id already contains text. 
     /// </summary>
-    /// <param name="id">Id to store text for.</param>
-    /// <param name="text">Text to store.</param>
-    public void StoreText(string id, string text)
+    /// <param name="entry">TextEntry to store.</param>
+    public void StoreText(TextEntry entry)
     {
-        var filePath = GetTextFilePath(id);
+        var filePath = GetTextFilePath(entry.Id);
         using (var writer = new StreamWriter(filePath, true))
         {
-            writer.WriteLine(text);
+            writer.WriteLine(entry.Text);
         }
     }
 
