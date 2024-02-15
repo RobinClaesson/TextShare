@@ -58,6 +58,13 @@ async Task Peek()
 
     Console.WriteLine($"Peeked text for {peekMenuChoice}:");
     var text = await apiHandler.Peek(peekMenuChoice);
+
+    if (string.IsNullOrEmpty(text))
+    {
+        Console.WriteLine($"No text stored for Quick Access Id '{SettingsHandler.Settings.QuickAccessId}'");
+        return;
+    }
+
     Console.WriteLine(text);
 
     if (SettingsHandler.Settings.CopyValuesToClipboard)
@@ -81,6 +88,13 @@ async Task Pop()
 
     Console.WriteLine($"Popped text for {popMenuChoice}:");
     var text = await apiHandler.Pop(popMenuChoice);
+
+    if (string.IsNullOrEmpty(text))
+    {
+        Console.WriteLine($"No text stored for Quick Access Id '{SettingsHandler.Settings.QuickAccessId}'");
+        return;
+    }
+
     Console.WriteLine(text);
 
     if (SettingsHandler.Settings.CopyValuesToClipboard)
