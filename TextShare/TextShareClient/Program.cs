@@ -17,8 +17,8 @@ var apiHandler = new ApiHandler();
 
 switch (parsedOptions)
 {
-    case MenuCommandLineOptions options:
-        await MainMenu(options);
+    case MenuCommandLineOptions:
+        await MainMenu();
         break;
     case PeekCommandLineOptions options:
         await Peek(options.Id);
@@ -32,7 +32,7 @@ switch (parsedOptions)
 }
 
 
-async Task MainMenu(MenuCommandLineOptions options)
+async Task MainMenu()
 {
     var mainMenu = new Menu("Text Share Client", new[] { "Peek", "Pop", "Push",
                                                         "Quick Peek", "Quick Pop", "Quick Push",
