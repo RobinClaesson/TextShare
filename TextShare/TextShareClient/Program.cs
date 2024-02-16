@@ -65,6 +65,9 @@ async Task MainMenu(MenuCommandLineOptions options)
         case "Quick Push":
             await QuickPush();
             break;
+        case "Show Settings":
+            ShowSettings();
+            break;
         case "Exit":
             Console.WriteLine("Exit");
             return;
@@ -271,4 +274,11 @@ async Task ListEntries()
         foreach (var s in texts)
             Console.WriteLine($"\t{entry.Text}");
     }
+}
+
+void ShowSettings()
+{
+    Console.WriteLine($"Base Adress: '{SettingsHandler.Settings.BaseAddress}'");
+    Console.WriteLine($"Quick Access Id: '{SettingsHandler.Settings.QuickAccessId}'");
+    Console.WriteLine($"Copy Values to Clipboard: '{SettingsHandler.Settings.CopyValuesToClipboard}'");
 }
