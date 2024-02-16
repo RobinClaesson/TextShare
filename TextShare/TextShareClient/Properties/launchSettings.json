@@ -4,12 +4,25 @@
       "commandName": "WSL2",
       "distributionName": ""
     },
-    "Peek verb": {
+    "Peek": {
       "commandName": "Project",
       "commandLineArgs": "peek Foo"
     },
-    "Menu verb (default)": {
-      "commandName": "Project"
+    "Pop": {
+      "commandName": "Project",
+      "commandLineArgs": "pop Foo"
+    },
+    "Push": {
+      "commandName": "Project",
+      "commandLineArgs": "push Foo Bar"
+    },
+    "Help": {
+      "commandName": "Project",
+      "commandLineArgs": "help"
+    },
+    "Menu": {
+      "commandName": "Project",
+      "commandLineArgs": "menu"
     }
   }
 }
