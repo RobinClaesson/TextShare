@@ -6,19 +6,37 @@ using CommandLine;
 using TextShareClient.TextShareSettings;
 using static System.Net.Mime.MediaTypeNames;
 
+
+var parsedOptions = Parser.Default.ParseArguments<MenuCommandLineOptions, PeekCommandLineOptions,
+                                                PopCommandLineOptions, PushCommandLineOptions>(args).Value;
+
+SettingsHandler.InitSettings((CommandLineOptions)parsedOptions);
 var apiHandler = new ApiHandler();
 
-Parser.Default.ParseArguments<CommandLineOptions, PeekCommandLineOptions>(args)
-    .WithParsed<CommandLineOptions>(async opt => await MainMenu(opt))
-    .WithParsed<PeekCommandLineOptions>(async opt => await PeekVerb(opt))
-    .WithParsed<PopCommandLineOptions>(async opt => await PopVerb(opt))
-    .WithParsed<PushCommandLineOptions>(async opt => await PushVerb(opt));
 
-async Task MainMenu(CommandLineOptions options)
+switch (parsedOptions)
 {
-    SettingsHandler.InitSettings(options);
+    case MenuCommandLineOptions options:
+        await MainMenu(options);
+        break;
+    case PeekCommandLineOptions options:
+        await Peek(options.Id);
+        break;
+    case PopCommandLineOptions options:
+        await Pop(options.Id);
+        break;
+    case PushCommandLineOptions options:
+        await Push((new TextEntry { Id = options.Id, Text = options.Text }));
+        break;
+}
 
-    var mainMenu = new Menu("Text Share Client", new[] { "Peek", "Pop", "Push", "Quick Peek", "Quick Pop", "Quick Push", "List Ids", "List Entries", "Exit" });
+
+async Task MainMenu(MenuCommandLineOptions options)
+{
+    var mainMenu = new Menu("Text Share Client", new[] { "Peek", "Pop", "Push",
+                                                        "Quick Peek", "Quick Pop", "Quick Push",
+                                                            "List Ids", "List Entries",
+                                                            "Show Settings", "Exit" });
     var mainMenuChoice = mainMenu.DisplayMenu();
 
     switch (mainMenuChoice)
@@ -71,12 +89,6 @@ async Task PeekMenu()
     await Peek(peekMenuChoice);
 }
 
-async Task PeekVerb(PeekCommandLineOptions options)
-{
-    SettingsHandler.InitSettings(options);
-    await Peek(options.Id);
-}
-
 async Task Peek(string id)
 {
     Console.WriteLine($"Fetching text for '{id}'");
@@ -114,12 +126,6 @@ async Task PopMenu()
     await Pop(popMenuChoice);
 }
 
-async Task PopVerb(PopCommandLineOptions options)
-{
-    SettingsHandler.InitSettings(options);
-    await Pop(options.Id);
-}
-
 async Task Pop(string id)
 {
     Console.WriteLine($"Popping text for {id}");
@@ -147,12 +153,6 @@ async Task PushMenu()
     var text = Console.ReadLine();
 
     await Push(new TextEntry { Id = id!, Text = text! });
-}
-
-async Task PushVerb(PushCommandLineOptions options)
-{
-    SettingsHandler.InitSettings(options);
-    await Push(new TextEntry { Id = options.Id, Text = options.Text });
 }
 
 async Task Push(TextEntry textEntry)
