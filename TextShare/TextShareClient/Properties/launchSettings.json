@@ -23,6 +23,14 @@
     "Menu": {
       "commandName": "Project",
       "commandLineArgs": "menu"
+    },
+    "List Id": {
+      "commandName": "Project",
+      "commandLineArgs": "list-id"
+    },
+    "List Entries": {
+      "commandName": "Project",
+      "commandLineArgs": "list-entries"
     }
   }
 }

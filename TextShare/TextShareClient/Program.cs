@@ -6,7 +6,8 @@ using CommandLine;
 using TextShareClient.TextShareSettings;
 
 var parsedOptions = Parser.Default.ParseArguments<MenuCommandLineOptions, PeekCommandLineOptions,
-                                                PopCommandLineOptions, PushCommandLineOptions>(args).Value;
+                                                PopCommandLineOptions, PushCommandLineOptions,
+                                                ListIdsCommandLineOptions, ListEntriesCommandLineOptions>(args).Value;
 
 if (parsedOptions is null)
     return;
@@ -29,8 +30,13 @@ switch (parsedOptions)
     case PushCommandLineOptions options:
         await Push((new TextEntry { Id = options.Id, Text = options.Text }));
         break;
+    case ListIdsCommandLineOptions:
+        await ListIds();
+        break;
+    case ListEntriesCommandLineOptions:
+        await ListEntries();
+        break;
 }
-
 
 async Task MainMenu()
 {
@@ -240,6 +246,7 @@ async Task QuickPush()
 
 async Task ListIds()
 {
+    Console.WriteLine("Fetching ids...");
     var ids = await apiHandler.ListIds();
     Console.Clear();
 
