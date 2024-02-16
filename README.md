@@ -1,6 +1,7 @@
 # Text Share
-Programs to store and share text with rest API. 
-Use cases: share text as a team, send text between ios and pc, repository of text
+Text share is a collection of programs and scripts to store and share text with rest API. 
+It can be used to store share text between devices on different platforms and ecosystems, such as Windows and iOS. 
+
 ## Text Share Server
 Host a server for Text Share that will store text with Ids. Can be configured to use either HTTP, HTTPS, or both. Also provides a web interface to show stored texts with an option to enable [Swagger UI](https://swagger.io/tools/swagger-ui/) to access API in the interface. 
 
