@@ -191,6 +191,20 @@ The following command line options are available for all actions:
 | --version      |       | Display version information.                                                |
 
 
+## Text Share Siri Shortcut
+For people with Iphone/Ipad/Mac can use this [Shortcut](https://www.icloud.com/shortcuts/689115cca5f849bd948233533b1362ba).
+
+The shortcut can perform the peek, pop, push, and list entries actions and copies the fetched values to the clipboard. It is also also added in the share-menu for quick pushes to an id.
+
+To setup the shortcut change the API adress (first textbox) from *http://example.com* to the address of your server. Optionally you can also change the Quick-id (second textbox) to alter the id used for items stored with the share-menu. 
+
+
+![Text Share Shortcut menu](/Assets/Shortcut.png)
+
+
+
+
+
 ## Build & Run
 Built with .NET Core 7.0 & ASP.NET Core.
 
