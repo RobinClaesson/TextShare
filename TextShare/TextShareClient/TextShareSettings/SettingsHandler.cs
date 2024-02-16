@@ -7,8 +7,15 @@ internal static class SettingsHandler
 {
     private const string SettingsFileName = "settings.json";
 
+    /// <summary>
+    /// Settings for this session.
+    /// </summary>
     public static Settings Settings { get; private set; } = new Settings();
 
+    /// <summary>
+    /// Initialize the settings. If the settings file does not exist, it will be created.
+    /// </summary>
+    /// <param name="options">Command line options to influence settings</param>
     public static void InitSettings(CommandLineOptions options)
     {
         if (File.Exists(SettingsFileName))
@@ -22,7 +29,9 @@ internal static class SettingsHandler
 
         Settings = Settings with
         {
-            CopyValuesToClipboard = Settings.CopyValuesToClipboard | options.Copy
+            CopyValuesToClipboard = Settings.CopyValuesToClipboard | options.Copy,
+            QuickAccessId = options.QuickAccessId ?? Settings.QuickAccessId,
+            BaseAddress = options.BaseAddress ?? Settings.BaseAddress
         };
     }
 }

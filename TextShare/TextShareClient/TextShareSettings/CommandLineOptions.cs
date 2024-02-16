@@ -13,6 +13,18 @@ internal abstract class CommandLineOptions
     /// </summary>
     [Option('c', "copy", Required = false, HelpText = "Copy the text entry to the clipboard. Overloads settings if set.")]
     public bool Copy { get; set; } = false;
+
+    /// <summary>
+    /// Set the quick access id. Overloads settings if set.
+    /// </summary>
+    [Option('q', "quick-access", Required =false, HelpText = "Set the quick access id. Overloads settings if set.")]
+    public string? QuickAccessId { get; set; } = null;
+
+    /// <summary>
+    /// Set the base address of the server. Overloads settings if set.
+    /// </summary>
+    [Option('a', "base-address", Required = false, HelpText = "Set the base address of the server. Overloads settings if set.")]
+    public string? BaseAddress { get; set; } = null;
 }
 
 /// <summary>
