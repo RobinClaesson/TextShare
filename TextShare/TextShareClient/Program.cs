@@ -4,11 +4,12 @@ using TextShareCommons.Models;
 using TextCopy;
 using CommandLine;
 using TextShareClient.TextShareSettings;
-using static System.Net.Mime.MediaTypeNames;
-
 
 var parsedOptions = Parser.Default.ParseArguments<MenuCommandLineOptions, PeekCommandLineOptions,
                                                 PopCommandLineOptions, PushCommandLineOptions>(args).Value;
+
+if (parsedOptions is null)
+    return;
 
 SettingsHandler.InitSettings((CommandLineOptions)parsedOptions);
 var apiHandler = new ApiHandler();
