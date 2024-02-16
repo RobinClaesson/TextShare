@@ -279,8 +279,8 @@ async Task ListEntries()
     {
         Console.WriteLine($"{entry.Id}:");
         var texts = entry.Text.Replace("\r", "").Split("\n");
-        foreach (var s in texts)
-            Console.WriteLine($"\t{entry.Text}");
+        foreach (var s in texts.Where(s => s != string.Empty))
+            Console.WriteLine($"\t{s}");
     }
 }
 
